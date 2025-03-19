@@ -1,6 +1,5 @@
 'use client'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, BarChart, Bar, PieChart, Pie, Cell, Sector } from 'recharts';
-import { PieSectorDataItem } from 'recharts/types/polar/Pie';
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
 
@@ -35,23 +34,30 @@ const years = [
 
 const pie = [
   {
-    name: "73%",
-    v: 48,
-    color: "#7044EA"
+    v: 50,
+    color: "#7044EA",
+    start: 0,
+    end: 50,
   },
   {
-    v: 18,
-    color: "#9D6DD5"
+    v: 17,
+    color: "#9D6DD5",
+    start: 50,
+    end: 67,
   },
   {
-    v: 18,
-    color: "#8048E7"
+    v: 17,
+    color: "#8048E7",
+    start: 67,
+    end: 84,
   },
   {
-    v: 18,
-    color: "#2F2F2F"
+    v: 16,
+    color: "#2F2F2F",
+    start: 84,
+    end: 100,
   },
-].reverse();
+];
 
 
 const Home = () => {
@@ -82,26 +88,23 @@ const Home = () => {
         </div>
         <div className='absolute top-[360px] left-[360px] border-[#343434] border-2 rounded-2xl p-8 backdrop-blur-sm'>
           <PieChart width={300} height={300}>
-            <Pie
-              dataKey="v"
-              isAnimationActive={false}
-              data={pie}
-              cx="50%"
-              cy="50%"
-              outerRadius={140}
-              stroke='none'
-              startAngle={85}
-              endAngle={450}
-              cornerRadius={5}
-              paddingAngle={-5}
-              activeShape={renderLabel}
-            >
-              {
-                pie.map((p, index) => (
-                  <Cell key={index} fill={p.color} width={index} className='border-none'></Cell>
-                ))
-              }
-            </Pie>
+              {pie.map((p, index) => {
+                return <Pie
+                  key={index}
+                  dataKey="v"
+                  isAnimationActive={false}
+                  data={[p]}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={50}
+                  outerRadius={140 - 12 * index}
+                  stroke='none'
+                  startAngle={90 - p.start * 3.6}
+                  endAngle={90 - p.end * 3.6}
+                  fill={p.color}
+                  cornerRadius={5}
+                ></Pie>
+            })}
               <g>
                 <Sector
                   cx={150}
@@ -121,11 +124,3 @@ const Home = () => {
   );
 }
 export default Home;
-
-const renderLabel = ({cx, cy, name} : PieSectorDataItem) => {
-  return (
-    <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle">{name}</text>
-    </g>
-  )
-}
