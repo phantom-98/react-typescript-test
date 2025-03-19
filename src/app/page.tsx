@@ -1,101 +1,151 @@
-import Image from "next/image";
+'use client'
+import { useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, PieChart, Pie, ResponsiveContainer, Cell, Label, Sector } from 'recharts';
+import { PieSectorDataItem } from 'recharts/types/polar/Pie';
 
-export default function Home() {
+const months = [
+  {
+    name: 'Jan',
+    uv: 26.3,
+    pv: 27.8,
+  },
+  {
+    name: 'Feb',
+    uv: 26.7,
+    pv: 26.4,
+  },
+  {
+    name: 'Mar',
+    uv: 27.8,
+    pv: 26.1,
+  },
+  {
+    name: 'Apr',
+    uv: 27.1,
+    pv: 27.9,
+  },
+  {
+    name: 'May',
+    uv: 26.3,
+    pv: 27.2,
+  },
+  {
+    name: 'Jun',
+    uv: 27.5,
+    pv: 26.2,
+  },
+]
+
+const years = [
+  {
+    name: "2021",
+    v: 3,
+    color: "#A6A6A6"
+  },
+  {
+    name: "2020",
+    v: 5,
+    color: "#7044EA"
+  },
+  {
+    name: "2019",
+    v: 1.5,
+    color: "#A6A6A6"
+  }
+]
+
+const pie = [
+  {
+    name: "73%",
+    v: 48,
+    color: "#7044EA"
+  },
+  {
+    v: 18,
+    color: "#9D6DD5"
+  },
+  {
+    v: 18,
+    color: "#8048E7"
+  },
+  {
+    v: 18,
+    color: "#2F2F2F"
+  },
+].reverse();
+
+const Home = () => {
+  const [active, setActive] = useState(0);
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex items-center justify-center">
+      <div className='mt-16 flex gap-8 relative'>
+        <div className='border-[#343434] border-2 rounded-2xl p-8 w-fit h-fit'>
+          <LineChart width={400} height={300} data={months}>
+            <CartesianGrid vertical={false}></CartesianGrid>
+            <Line type="monotone" dataKey="uv" stroke="#8884d8" strokeWidth={2} dot={false}/>
+            <Line type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={2} dot={false}/>
+            <XAxis dataKey="name" padding={{left: 10, right: 10}} axisLine={false} tickLine={false} tick={{fill: "white"}} tickMargin={16}/>
+            <YAxis type='number' domain={[25, 29]} axisLine={false} tickLine={false} tick={{fill: "white"}} tickMargin={16}/>
+          </LineChart>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className='border-[#343434] border-2 rounded-2xl p-8 w-fit h-fit'>
+          <BarChart data={years} width={200} height={250}>
+            <Bar dataKey="v" color='color' >
+              {
+                years.map((y, index) => (
+                  <Cell key={index} fill={y.color} radius={10}></Cell>
+                ))
+              }
+            </Bar>
+            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: "white"}} tickMargin={16}/>
+          </BarChart>
+        </div>
+        <div className='absolute top-64 left-64 border-[#343434] border-2 rounded-2xl p-8 backdrop-blur-sm'>
+          <PieChart width={300} height={300}>
+            <Pie
+              dataKey="v"
+              data={pie}
+              cx="50%"
+              cy="50%"
+              outerRadius={120}
+              fill="#8884d8"
+              stroke='none'
+              startAngle={85}
+              endAngle={450}
+              cornerRadius={5}
+              paddingAngle={-5}
+              activeShape={renderLabel}
+            >
+              {
+                pie.map((p, index) => (
+                  <Cell key={index} fill={p.color} width={index} radius={80 - 4*index} className='border-none'></Cell>
+                ))
+              }
+            </Pie>
+              <g>
+                <Sector
+                  cx={150}
+                  cy={150}
+                  innerRadius={0}
+                  outerRadius={60}
+                  startAngle={0}
+                  endAngle={360}
+                  fill="#281A4D"
+                />
+                <text x={"50%"} y={"50%"} dy={8} textAnchor="middle" fontSize={30} fill='white'>73%</text>
+              </g>
+          </PieChart>
+        </div>
+      </div>
     </div>
   );
+}
+export default Home;
+
+const renderLabel = ({cx, cy, name} : PieSectorDataItem) => {
+  return (
+    <g>
+      <text x={cx} y={cy} dy={8} textAnchor="middle">{name}</text>
+    </g>
+  )
 }
