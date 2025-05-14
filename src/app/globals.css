@@ -24,4 +24,36 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .poly-button {
+    --edge-in-px: 1rem;
+    --edge-with-border: calc(1rem + 1px);
+  }
+  .poly-button.primary {
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--edge-in-px)) 0,
+      100% var(--edge-in-px),
+      100% 100%,
+      var(--edge-in-px) 100%,
+      0 calc(100% - var(--edge-in-px))
+    );
+  }
+  .poly-button.secondary {
+    clip-path: polygon(
+      var(--edge-in-px) 0,
+      100% 0,
+      100% calc(100% - var(--edge-in-px)),
+      calc(100% - var(--edge-in-px)) 100%,
+      0 100%,
+      0 var(--edge-in-px),
+      var(--edge-in-px) 0,
+      var(--edge-with-border) 1px,
+      1px var(--edge-with-border),
+      1px calc(100% - 1px),
+      calc(100% - var(--edge-with-border)) calc(100% - 1px),
+      calc(100% - 1px) calc(100% - var(--edge-with-border)),
+      calc(100% - 1px) 1px,
+      var(--edge-with-border) 1px
+    );
+  }
 }
