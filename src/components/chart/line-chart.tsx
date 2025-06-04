@@ -6,7 +6,7 @@ import { LineChartDataType } from "./types";
 
 const CustomLineChart = ({ months } : { months: LineChartDataType[]}) => {
     return (
-        <LineChart width={500} height={400} data={months}>
+        <LineChart width={500} height={330} data={months}>
             <CartesianGrid vertical={false} stroke='#5D5D5D'></CartesianGrid>
             <Line type="monotone" dataKey="uv" stroke="#6F43E7" strokeWidth={3} dot={false}/>
             <Line type="monotone" dataKey="pv" stroke="#6F43E7" strokeWidth={3} dot={false}/>
